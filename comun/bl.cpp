@@ -4,12 +4,12 @@
 
 #include "bl.h"
 #include "random.hpp"
-#include "Solution_enteros.h"
+#include "Solution.h"
 
 using namespace std;
 using Random = effolkronium::random_static;
 
-pair<Solution_enteros,int> bl(Problem p, Solution_enteros s) {
+Solution bl(Problem p, Solution s) {
     int contador = 0;
 
     int evaluaciones = 0;
@@ -25,7 +25,7 @@ pair<Solution_enteros,int> bl(Problem p, Solution_enteros s) {
 
     // MODIFICACIÓN: Ahora estos vecinos no se exploran directamente sino que se almacenan en un vector
     // se baraja y se van explorando en el orden que nos de el aleatorio
-    while (contador < 400) {
+    while (contador < 1e4) {
         bool vecindario_explorado = true;
         // También almacenamos el cambio que supone la generación de ese vecino
         vector<pair<int,int>> vecinos;
@@ -44,7 +44,7 @@ pair<Solution_enteros,int> bl(Problem p, Solution_enteros s) {
             if (contador == 1e5)
                 break;
 
-            Solution_enteros v = s.neighbor((*it).first, (*it).second, p.get_d());
+            Solution v = s.neighbor((*it).first, (*it).second, p.get_d());
 
             if (v.get_diff() < s.get_diff()) {
                 s = v;
@@ -60,5 +60,5 @@ pair<Solution_enteros,int> bl(Problem p, Solution_enteros s) {
             break;
     }
 
-    return pair<Solution_enteros,int>(s,evaluaciones);
+    return s;
 }

@@ -5,10 +5,10 @@
 #ifndef MAIN_CPP_BL_H
 #define MAIN_CPP_BL_H
 
-#include "Solution_enteros.h"
+#include "Solution.h"
 #include "Problem.h"
 
-std::pair<Solution_enteros,int> bl(Problem p, Solution_enteros inicial);
+Solution bl(Problem p, Solution inicial);
 
 
 #endif //MAIN_CPP_BL_H
