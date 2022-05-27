@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "pruebas.exe"
+			"path" : "ILS-ES.exe"
 		},
 		{
-			"path" : "pruebas.pdb"
+			"path" : "ILS-ES.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -96,7 +96,7 @@
 			"id" : "bl::@6890427a1f51a3e7e1df"
 		}
 	],
-	"id" : "pruebas::@6890427a1f51a3e7e1df",
+	"id" : "ILS-ES::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -131,8 +131,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "pruebas",
-	"nameOnDisk" : "pruebas.exe",
+	"name" : "ILS-ES",
+	"nameOnDisk" : "ILS-ES.exe",
 	"paths" : 
 	{
 		"build" : ".",
@@ -153,7 +153,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/pruebas.cpp",
+			"path" : "src/ILS-ES.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

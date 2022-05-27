@@ -2,40 +2,55 @@
 // Created by Fernando on 21/05/2022.
 //
 
-#include <iostream>
-#include "random.hpp"
-#include "Problem.h"
+#include "bl.h"
 #include "Solution.h"
+#include "random.hpp"
 #include <filesystem>
 
 using namespace std;
 
 using Random = effolkronium::random_static;
 
-Solution ES(Problem& p);
+Solution ES_mod(Problem p, Solution s0);
+Solution ILS_ES(Problem p);
 
 int main () {
     Random::seed(0);
 
     string path = "..\\datos";
     ofstream salida;
-    salida.open("..\\resultados\\ES.csv");
+    salida.open("..\\resultados\\ILS-ES.csv");
     for (const auto &entry: std::filesystem::directory_iterator(path)) {
         string file = entry.path().u8string();
         salida << file << ";";
 
         Problem p(file);
         auto tinicio = clock();
-        Solution S = ES(p);
+        Solution S = ILS_ES(p);
         auto tfin = clock();
         salida << S.get_diff() << ";" << double(tfin-tinicio)/CLOCKS_PER_SEC*1000 << ";" << endl;
         cout << "Terminado " << file << endl;
     }
 
+
 }
 
-Solution ES(Problem& p) {
+Solution ILS_ES(Problem p) {
+    Solution mejor;
     Solution s = SolucionAleatoria(p);
+    s = bl(p,s);
+    mejor = s;
+
+    for (int i=1; i<10;i++) {
+        s = ES_mod(p,mejor.mutacion(p));
+        if (mejor.get_diff()>s.get_diff())
+            mejor = s;
+    }
+    return mejor;
+}
+
+Solution ES_mod(Problem p, Solution s0) {
+    Solution s = s0;
     for (int i=0; i<s.get_selected().size();i++)
         p.extract(s.get_selected()[i]);
     // Calculamos la temperatura inicial
@@ -51,7 +66,7 @@ Solution ES(Problem& p) {
     int vecinos_generados = 0;
     int max_exitos = 0.1*max_vecinos;
     int exitos = 0;
-    int max_evaluaciones = 1e5;
+    int max_evaluaciones = 1e4;
     int M = max_evaluaciones/max_vecinos;
 
     // Algoritmo
